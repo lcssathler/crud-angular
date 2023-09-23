@@ -12,6 +12,7 @@ export class CoursesComponent implements OnInit {
     { _id: "1", name: "Full Stack Java Developer", category: "Full Stack" },
     { _id: "1", name: "How to have a healthier life", category: "Health" }
   ];
+  
   displayedColumns = ["name", "category"];
 
   constructor() {
