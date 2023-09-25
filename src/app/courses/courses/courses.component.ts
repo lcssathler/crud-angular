@@ -8,14 +8,11 @@ import { CoursesService } from '../service/courses.service';
   styleUrls: ['./courses.component.scss']
 })
 export class CoursesComponent implements OnInit {
-  coursesService: CoursesService;
-
   courses: Course[] = [];
 
   displayedColumns = ["name", "category"];
 
-  constructor() {
-    this.coursesService = new CoursesService;
+  constructor(private coursesService: CoursesService) {
     this.courses = this.coursesService.list();
   }
 
