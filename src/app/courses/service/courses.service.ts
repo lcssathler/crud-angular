@@ -5,13 +5,13 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
+
 export class CoursesService {
+  private readonly url = "/assets/courses.json";
 
   constructor(private httpClient: HttpClient) { }
 
-  list(): Course[] {
-    return [
-      { _id: "4", name: "Web Designer", category: "UX/UI" }
-    ]
+  list(){
+    return this.httpClient.get<Course[]>(this.url);
   }
 }
