@@ -1,3 +1,14 @@
 table {
   width: 100%;
 }
+mat-card {
+  padding: 25px;
+}
+
+.loading-spinner {
+  background-color: rgb(235, 231, 231);
+  height: 240px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
