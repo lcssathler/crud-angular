@@ -8,7 +8,7 @@ import { delay, first, tap } from 'rxjs';
 })
 
 export class CoursesService {
-  private readonly url = "/assets/DASDcourses.json";
+  private readonly url = "/assets/courses.json";
 
   constructor(private httpClient: HttpClient) { }
 
@@ -16,7 +16,7 @@ export class CoursesService {
     return this.httpClient.get<Course[]>(this.url)
     .pipe(
       first(),
-      delay(5000),
+      // delay(5000),
       tap(courses => console.log(courses))
     );
   }
