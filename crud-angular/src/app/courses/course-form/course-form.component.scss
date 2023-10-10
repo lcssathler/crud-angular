@@ -1,0 +1,56 @@
+.card-form-container {
+  min-width: 280px;
+  width: 80%;
+  margin: 2em auto;
+}
+
+mat-form-field {
+  width: 100%;
+  display: block;
+  margin-top: 1em;
+}
+
+.form-buttons-action {
+  display: table;
+  width: auto;
+  margin: 0 auto;
+}
+
+.form-buttons-action button {
+  margin-right: 16px;
+}
+
+
+/* --- UTILITIES --- */
+
+.utl-mar-top-8 {
+  margin-top: 8px;
+}
+
+.utl-mar-right-8 {
+  margin-right: 8px;
+}
+
+.utl-mar-bottom-8 {
+  margin-bottom: 8px;
+}
+
+.utl-mar-left-8 {
+  margin-left: 8px;
+}
+
+.utl-mar-top-24 {
+  margin-top: 24px;
+}
+
+.utl-mar-right-24 {
+  margin-right: 24px;
+}
+
+.utl-mar-bottom-24 {
+  margin-bottom: 24px;
+}
+
+.utl-mar-left-24 {
+  margin-left: 24px;
+}

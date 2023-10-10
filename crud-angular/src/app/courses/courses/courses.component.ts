@@ -4,6 +4,7 @@ import { CoursesService } from '../service/courses.service';
 import { Observable, catchError, of } from 'rxjs';
 import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/error-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
