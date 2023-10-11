@@ -23,8 +23,9 @@ public class CourseController {
         return courseRepository.findAll();
     }
 
-    @PostMapping("/save")
-    public ResponseEntity<Course> save () {
-        return ResponseEntity.status(HttpStatus.OK).body(courseRepository.save(course));
+    @PostMapping()
+    public ResponseEntity<Course> createCourse (@RequestBody Course course) {
+        System.out.println(course);
+        return ResponseEntity.status(HttpStatus.CREATED).body(courseRepository.save(course));
     }
 }
