@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core'
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CoursesService } from '../service/courses.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from '../../shared/components/error-dialog/error-dialog.component';
-
 
 @Component({
   selector: 'app-course-form',
@@ -26,7 +25,7 @@ export class CourseFormComponent {
         this.dialog.open(ErrorDialogComponent, { data: "Error saving new course" })
       });
   }
-
+  
   onCancel() {
 
   }
