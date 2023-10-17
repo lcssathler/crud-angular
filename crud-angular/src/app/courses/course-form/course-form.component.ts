@@ -1,5 +1,5 @@
-import { Component, OnInit} from '@angular/core'
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core'
+import { FormBuilder, FormControl, FormGroup, NonNullableFormBuilder } from '@angular/forms';
 import { CoursesService } from '../service/courses.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from '../../shared/components/error-dialog/error-dialog.component';
@@ -9,24 +9,35 @@ import { ErrorDialogComponent } from '../../shared/components/error-dialog/error
   templateUrl: './course-form.component.html',
   styleUrls: ['./course-form.component.scss']
 })
-export class CourseFormComponent {
-  form: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private coursesService: CoursesService, private dialog: MatDialog) {
-    this.form = this.formBuilder.group({
-      name: [null],
-      category: [null]
-    })
+export class CourseFormComponent {
+
+  form = this.formBuilder.group({
+    name: [""],
+    category: [""]
+  })
+
+  constructor(
+    private formBuilder: NonNullableFormBuilder,
+    private coursesService: CoursesService,
+    private dialog: MatDialog) {
+
   }
 
   onSubmit() {
     this.coursesService.save(this.form.value)
-      .subscribe(result => console.log(result), error => {
-        this.dialog.open(ErrorDialogComponent, { data: "Error saving new course" })
-      });
+      .subscribe(result => this.successDialogMessage(), error => this.errorDialogMessage());
   }
-  
+
   onCancel() {
 
+  }
+
+  successDialogMessage() {
+    this.dialog.open(ErrorDialogComponent, { data: "Course saved successfully!" })
+  }
+
+  errorDialogMessage() {
+    this.dialog.open(ErrorDialogComponent, { data: "Error saving new course" })
   }
 }
