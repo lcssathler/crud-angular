@@ -1,1 +1,39 @@
-<p>courses-list works!</p>
+<mat-table [dataSource]="courses">
+
+  <!-- Name column -->
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+  </ng-container>
+
+  <!-- Category column -->
+  <ng-container matColumnDef="category">
+    <mat-header-cell *matHeaderCellDef> Category </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      {{ element.category }}
+      <mat-icon aria-hidden="false" aria-label="Example home icon">{{ element.category | category}}</mat-icon>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Actions column -->
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef>
+      <button (click)="onAdd()" mat-mini-fab color="accent" aria-label="Add course button">
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-header-cell>
+
+    <mat-cell *matCellDef="let element">
+      <button mat-icon-button color="accent" aria-label="Edit course button">
+        <mat-icon>edit</mat-icon>
+      </button>
+
+      <button mat-icon-button color="warn" aria-label="Delete course button">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>

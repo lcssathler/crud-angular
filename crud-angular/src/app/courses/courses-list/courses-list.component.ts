@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Course } from '../model/course';
 
 @Component({
   selector: 'app-courses-list',
@@ -6,5 +8,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./courses-list.component.scss']
 })
 export class CoursesListComponent {
+  @Input() courses: Course[] = [];
+  displayedColumns = ["name", "category", "actions"];
 
+  constructor(private router: Router, private route: ActivatedRoute) {
+
+  }
+
+  onAdd() {
+    this.router.navigate(["new"], {relativeTo: this.route});
+  }
 }
