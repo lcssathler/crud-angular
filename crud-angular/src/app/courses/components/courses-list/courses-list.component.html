@@ -3,34 +3,35 @@
   <!-- Name column -->
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef class="flex-basis-40"> Name </mat-header-cell>
-    <mat-cell *matCellDef="let element" class="flex-basis-40"> {{element.name}} </mat-cell>
+    <mat-cell *matCellDef="let course" class="flex-basis-40"> {{course.name}} </mat-cell>
   </ng-container>
 
   <!-- Category column -->
   <ng-container matColumnDef="category">
     <mat-header-cell *matHeaderCellDef class="flex-basis-40"> Category </mat-header-cell>
-    <mat-cell *matCellDef="let element" class="flex-basis-40">
-      {{ element.category }}
-      <mat-icon aria-hidden="false" aria-label="Example home icon">{{ element.category | category}}</mat-icon>
+    <mat-cell *matCellDef="let course" class="flex-basis-40">
+      {{ course.category }}
+      <mat-icon aria-hidden="false" aria-label="Example home icon">{{ course.category | category}}</mat-icon>
     </mat-cell>
   </ng-container>
 
   <!-- Actions column -->
   <ng-container matColumnDef="actions">
-    <mat-header-cell *matHeaderCellDef  class="flex-basis-20 table-header-actions">
+    <mat-header-cell *matHeaderCellDef class="flex-basis-20 table-header-actions">
       <button (click)="onAdd()" mat-mini-fab color="accent" aria-label="Add course button">
         <mat-icon>add</mat-icon>
       </button>
     </mat-header-cell>
 
-      <mat-cell *matCellDef="let element" class="flex-basis-20">
-        <button mat-icon-button color="accent" aria-label="Edit course button">
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-icon-button color="warn" aria-label="Delete course button">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </mat-cell>
+    <mat-cell *matCellDef="let course" class="flex-basis-20">
+      <button (click)="onEdit(course)" mat-icon-button color="accent" aria-label="Edit course button">
+        <mat-icon>edit</mat-icon>
+      </button>
+
+      <button mat-icon-button color="warn" aria-label="Delete course button">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-cell>
   </ng-container>
 
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

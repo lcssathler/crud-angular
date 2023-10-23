@@ -6,7 +6,7 @@ import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/err
 import { MatDialog } from '@angular/material/dialog';
 
 import { ActivatedRoute, Router } from '@angular/router';
-  
+
 @Component({
   selector: 'app-courses',
   templateUrl: './courses.component.html',
@@ -38,6 +38,10 @@ export class CoursesComponent implements OnInit {
 
   onAdd() {
     this.router.navigate(["new"], { relativeTo: this.route });
+  }
+
+  onEdit(course: Course) {
+    this.router.navigate(["edit", course._id], { relativeTo: this.route })
   }
 
   ngOnInit(): void {

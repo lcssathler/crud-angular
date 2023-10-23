@@ -23,7 +23,7 @@ public class CourseController {
         return courseRepository.findAll();
     }
 
-    @GetMapping
+    @GetMapping("/{id}")
     public ResponseEntity<Course> findById(@PathVariable Long id) {
         return courseRepository.findById(id)
         .map(course -> ResponseEntity.ok().body(course))
@@ -36,3 +36,4 @@ public class CourseController {
         return ResponseEntity.status(HttpStatus.CREATED).body(courseRepository.save(course));
     }
 }
+ 
