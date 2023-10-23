@@ -23,6 +23,13 @@ public class CourseController {
         return courseRepository.findAll();
     }
 
+    @GetMapping
+    public ResponseEntity<Course> findById(@PathVariable Long id) {
+        return courseRepository.findById(id)
+        .map(course -> ResponseEntity.ok().body(course))
+        .orElse(ResponseEntity.badRequest().build());
+    }
+
     @PostMapping()
     public ResponseEntity<Course> createCourse (@RequestBody Course course) {
         System.out.println(course);
