@@ -12,12 +12,12 @@ export class CoursesService {
 
   constructor(private httpClient: HttpClient) { }
 
-  list(){
+  list() {
     return this.httpClient.get<Course[]>(this.url)
-    .pipe(
-      first(),
-      tap(courses => console.log(courses))
-    );
+      .pipe(
+        first(),
+        tap(courses => console.log(courses))
+      );
   }
 
   save(course: Partial<Course>) {

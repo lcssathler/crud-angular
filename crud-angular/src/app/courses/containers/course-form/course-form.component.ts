@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, NonNullableFormBuilder } from '@angular/forms';
-import { CoursesService } from '../service/courses.service';
+import { CoursesService } from '../../service/courses.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ErrorDialogComponent } from '../../shared/components/error-dialog/error-dialog.component';
+import { ErrorDialogComponent } from '../../../shared/components/error-dialog/error-dialog.component';
 
 @Component({
   selector: 'app-course-form',
