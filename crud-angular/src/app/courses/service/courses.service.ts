@@ -20,6 +20,10 @@ export class CoursesService {
       );
   }
 
+  findById(id: string) {
+    return this.httpClient.get<Course>(`${this.url}${id}`)
+  }
+
   save(course: Partial<Course>) {
     return this.httpClient.post<Course>(this.url, course);
   }
