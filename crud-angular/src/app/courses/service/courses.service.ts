@@ -15,13 +15,12 @@ export class CoursesService {
   list() {
     return this.httpClient.get<Course[]>(this.url)
       .pipe(
-        first(),
-        tap(courses => console.log(courses))
+        first()
       );
   }
 
   findById(id: string) {
-    return this.httpClient.get<Course>(`${this.url}${id}`)
+    return this.httpClient.get<Course>(`${this.url}/${id}`)
   }
 
   save(course: Partial<Course>) {
