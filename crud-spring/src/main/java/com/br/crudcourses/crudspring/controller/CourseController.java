@@ -12,12 +12,11 @@ import java.util.List;
 @RequestMapping("/api/courses")
 public class CourseController {
     private final CourseRepository courseRepository;
-    public Course course = new Course("Java Professional", "back-end");
 
     public CourseController(CourseRepository courseRepository) {
         this.courseRepository = courseRepository;
     }
-    
+
     @GetMapping
     public List<Course> coursesList() {
         return courseRepository.findAll();
@@ -26,13 +25,25 @@ public class CourseController {
     @GetMapping("/{id}")
     public ResponseEntity<Course> findById(@PathVariable Long id) {
         return courseRepository.findById(id)
-        .map(response -> ResponseEntity.ok().body(response))
-        .orElse(ResponseEntity.badRequest().build());
+                .map(response -> ResponseEntity.ok().body(response))
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping()
-    public ResponseEntity<Course> createCourse (@RequestBody Course course) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(courseRepository.save(course));
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public Course createCourse(@RequestBody Course course) {
+        return courseRepository.save(course);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Course> update(@PathVariable Long id, @RequestBody Course course) {
+        return courseRepository.findById(id)
+                .map(courseFound -> {
+                    courseFound.setName(course.getName());
+                    courseFound.setCategory(course.getCategory());
+                    Course updated = courseRepository.save(courseFound);
+                    return ResponseEntity.ok().body(courseFound);
+                })
+                .orElse(ResponseEntity.notFound().build());
     }
 }
- 

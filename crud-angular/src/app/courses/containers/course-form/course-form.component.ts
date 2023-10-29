@@ -16,7 +16,7 @@ import { ActivatedRoute } from '@angular/router';
 export class CourseFormComponent {
 
   form = this.formBuilder.group({
-    id: [""],
+    _id: [""],
     name: [""],
     category: [""]
   })
@@ -33,7 +33,7 @@ export class CourseFormComponent {
     const courseRoute: Course = this.route.snapshot.data['course'];
 
     this.form.setValue({
-      id: courseRoute._id,
+      _id: courseRoute._id,
       name: courseRoute.name,
       category: courseRoute.category
     })
