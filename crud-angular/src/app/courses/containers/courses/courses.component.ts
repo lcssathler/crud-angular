@@ -13,7 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./courses.component.scss']
 })
 export class CoursesComponent implements OnInit {
-  courses$: Observable<Course[]>;
+  courses$: Observable<Course[]> | null = null;
 
   constructor(
     private coursesService: CoursesService,
@@ -21,13 +21,7 @@ export class CoursesComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute
   ) {
-    this.courses$ = this.coursesService.list()
-      .pipe(
-        catchError(error => {
-          this.onMsg("Error loading courses")
-          return of([]);
-        })
-      );
+    this.refresh();
   }
 
   refresh() {
@@ -39,7 +33,7 @@ export class CoursesComponent implements OnInit {
         })
       );
   }
-/
+
 
   onAdd() {
     this.router.navigate(["new"], { relativeTo: this.route });
@@ -51,7 +45,13 @@ export class CoursesComponent implements OnInit {
 
   onDelete(course: Course) {
     this.coursesService.delete(course._id)
-      .subscribe(() => this.onMsg("Course deleted successfully!"))
+      .subscribe(
+        (success) => {
+          this.refresh();
+          this.onMsg("Course deleted successfully!")
+        },
+        (error) => this.onMsg("Error deleting course")
+      );
   }
 
   onMsg(msg: string) {
@@ -60,7 +60,7 @@ export class CoursesComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
 
   }
 }

@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from '../../../shared/components/error-dialog/error-dialog.component';
 import { CoursesService } from '../../service/courses.service';
 import { Course } from '../../model/course';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-course-form',
@@ -25,7 +25,8 @@ export class CourseFormComponent {
     private formBuilder: NonNullableFormBuilder,
     private coursesService: CoursesService,
     private dialog: MatDialog,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private router: Router) {
 
   }
 
@@ -45,7 +46,7 @@ export class CourseFormComponent {
   }
 
   onCancel() {
-
+    this.router.navigate([""], { relativeTo: this.route})
   }
 
   successDialogMessage() {
