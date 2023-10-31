@@ -1,8 +1,8 @@
-import { Course } from '../model/course';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { first, tap } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { core } from '@angular/compiler';
+import { first } from 'rxjs';
+
+import { Course } from '../model/course';
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +15,7 @@ export class CoursesService {
 
   list() {
     return this.httpClient.get<Course[]>(this.url)
-      .pipe(
-        first(),
-        tap(courses => console.log(courses))
-      );
+      .pipe(first());
   }
 
   findById(id: string) {
@@ -27,14 +24,11 @@ export class CoursesService {
 
   save(course: Partial<Course>) {
     if (course._id) {
-      console.log("update");
       return this.update(course);
     }
 
-    console.log("create");
     return this.create(course);
   }
-
 
   private create(course: Partial<Course>) {
     return this.httpClient.post<Course>(this.url, course).pipe(first());
@@ -43,4 +37,9 @@ export class CoursesService {
   private update(course: Partial<Course>) {
     return this.httpClient.put<Course>(`${this.url}/${course._id}`, course).pipe(first());
   }
-}
+
+  delete(id: string) {
+    return this.httpClient.delete(`${this.url}/${id}`).pipe(first());
+  }
+
+}  

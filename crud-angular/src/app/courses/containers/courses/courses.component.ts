@@ -24,17 +24,22 @@ export class CoursesComponent implements OnInit {
     this.courses$ = this.coursesService.list()
       .pipe(
         catchError(error => {
-          this.onError("Error loading courses")
+          this.onMsg("Error loading courses")
           return of([]);
         })
       );
   }
 
-  onError(errorMsg: string) {
-    this.dialog.open(ErrorDialogComponent, {
-      data: errorMsg
-    });
+  refresh() {
+    this.courses$ = this.coursesService.list()
+      .pipe(
+        catchError(error => {
+          this.onMsg("Error loading courses")
+          return of([]);
+        })
+      );
   }
+/
 
   onAdd() {
     this.router.navigate(["new"], { relativeTo: this.route });
@@ -42,6 +47,17 @@ export class CoursesComponent implements OnInit {
 
   onEdit(course: Course) {
     this.router.navigate(["edit", course._id], { relativeTo: this.route })
+  }
+
+  onDelete(course: Course) {
+    this.coursesService.delete(course._id)
+      .subscribe(() => this.onMsg("Course deleted successfully!"))
+  }
+
+  onMsg(msg: string) {
+    this.dialog.open(ErrorDialogComponent, {
+      data: msg
+    });
   }
 
   ngOnInit(): void {
