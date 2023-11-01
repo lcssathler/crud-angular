@@ -6,6 +6,7 @@ import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/err
 import { MatDialog } from '@angular/material/dialog';
 
 import { ActivatedRoute, Router } from '@angular/router';
+import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-courses',
@@ -44,14 +45,22 @@ export class CoursesComponent implements OnInit {
   }
 
   onDelete(course: Course) {
-    this.coursesService.delete(course._id)
-      .subscribe(
-        (success) => {
-          this.refresh();
-          this.onMsg("Course deleted successfully!")
-        },
-        (error) => this.onMsg("Error deleting course")
-      );
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: "Do you want to remove this course?",
+    });
+
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
+        this.coursesService.delete(course._id)
+          .subscribe(
+            (success) => {
+              this.refresh();
+              this.onMsg("Course deleted successfully!")
+            },
+            (error) => this.onMsg("Error deleting course")
+          );
+      }
+    })
   }
 
   onMsg(msg: string) {
