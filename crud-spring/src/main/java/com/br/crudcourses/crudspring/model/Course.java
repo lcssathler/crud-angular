@@ -1,5 +1,8 @@
 package com.br.crudcourses.crudspring.model;
 
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.DialectOverride.Where;
+import org.hibernate.annotations.DialectOverride.Wheres;
 import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -11,6 +14,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@SQLDelete(sql = "UPDATE courses SET status = 'inactive' WHERE id = ?")
+@org.hibernate.annotations.Where(clause = "WHERE status = 'active'")
 @Data
 @Entity
 @Table(name = "courses")
@@ -33,6 +38,13 @@ public class Course {
     @NotNull
     @Pattern(regexp = "Back-End|Front-End")
     private String category;
+
+    @Column(length = 10, nullable = false)
+    @NotBlank
+    @NotNull
+    @Pattern(regexp = "active|inactive")
+    private String status = "active";
+
 
     public Course(String name, String category) {
         this.name = name;
