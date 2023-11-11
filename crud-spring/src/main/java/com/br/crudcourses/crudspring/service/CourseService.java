@@ -1,10 +1,8 @@
 package com.br.crudcourses.crudspring.service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.hibernate.mapping.Collection;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,8 +14,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.br.crudcourses.crudspring.dto.CourseDTO;
 import com.br.crudcourses.crudspring.dto.mapper.CourseMapper;
+import com.br.crudcourses.crudspring.enums.Category;
 import com.br.crudcourses.crudspring.exceptions.RecordNotFoundException;
-import com.br.crudcourses.crudspring.model.Course;
 import com.br.crudcourses.crudspring.repository.CourseRepository;
 
 import jakarta.validation.Valid;
@@ -60,7 +58,7 @@ public class CourseService {
         return courseRepository.findById(id)
             .map(course -> {
                 course.setName(courseDTO.name());
-                course.setCategory(courseDTO.category());
+                course.setCategory(Category.FRONT_END);
                 return courseMapper.toDto(courseRepository.save(course));
             })
             .orElseThrow(() -> new RecordNotFoundException(id));
