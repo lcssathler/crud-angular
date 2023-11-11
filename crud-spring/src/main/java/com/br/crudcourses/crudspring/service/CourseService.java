@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.br.crudcourses.crudspring.exceptions.RecordNotFoundException;
 import com.br.crudcourses.crudspring.model.Course;
 import com.br.crudcourses.crudspring.repository.CourseRepository;
 
@@ -35,8 +36,8 @@ public class CourseService {
     }
 
     @GetMapping("/{id}")
-    public Optional<Course> findById(@PathVariable @NotNull @Positive Long id) {
-        return courseRepository.findById(id);
+    public Course findById(@PathVariable @NotNull @Positive Long id) {
+        return courseRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(id));
     }
 
     @PostMapping()
@@ -46,22 +47,19 @@ public class CourseService {
     }
 
     @PutMapping("/{id}")
-    public Optional<Course> update(@NotNull @Positive Long id, @Valid Course course) {
+    public Course update(@NotNull @Positive Long id, @Valid Course course) {
         return courseRepository.findById(id)
             .map(courseFound -> {
                 courseFound.setName(course.getName());
                 courseFound.setCategory(course.getCategory());
                 return courseRepository.save(courseFound);
-            });
+            })
+            .orElseThrow(() -> new RecordNotFoundException(id));
     }
 
     @DeleteMapping("/{id}")
-    public boolean delete(@NotNull @Positive Long id) {
-        return courseRepository.findById(id)
-                .map(courseFound -> {
-                    courseRepository.deleteById(courseFound.getId());
-                    return true;
-                })
-                .orElse(false);
+    public void delete(@NotNull @Positive Long id) {
+        courseRepository.delete(courseRepository.findById(id)
+            .orElseThrow(() -> new RecordNotFoundException(id)));
     }
 }
