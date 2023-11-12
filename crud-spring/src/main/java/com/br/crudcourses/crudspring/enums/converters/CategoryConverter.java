@@ -5,7 +5,6 @@ import java.util.stream.Stream;
 import com.br.crudcourses.crudspring.enums.Category;
 
 import jakarta.persistence.AttributeConverter;
-import jakarta.persistence.Convert;
 import jakarta.persistence.Converter;
 
 @Converter(autoApply = true)
