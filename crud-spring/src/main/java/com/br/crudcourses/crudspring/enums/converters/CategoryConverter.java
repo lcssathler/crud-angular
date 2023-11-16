@@ -27,5 +27,4 @@ public class CategoryConverter implements AttributeConverter<Category, String> {
                 .findFirst()
                 .orElseThrow(IllegalArgumentException::new);
     }
-
 }

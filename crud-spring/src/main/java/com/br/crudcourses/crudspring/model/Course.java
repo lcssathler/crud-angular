@@ -1,22 +1,26 @@
 package com.br.crudcourses.crudspring.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.hibernate.validator.constraints.Length;
 
 import com.br.crudcourses.crudspring.enums.Category;
+import com.br.crudcourses.crudspring.enums.Status;
 import com.br.crudcourses.crudspring.enums.converters.CategoryConverter;
+import com.br.crudcourses.crudspring.enums.converters.StatusConverter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @SQLDelete(sql = "UPDATE courses SET status = 'inactive' WHERE id = ?")
-@Where(clause = "status = 'active'")
+@Where(clause = "status = 'Active'")
 @Data
 @Entity
 @Table(name = "courses")
@@ -34,17 +38,17 @@ public class Course {
     @Length(min = 5, max = 100)
     private String name;
 
-    // @Column(length = 10, nullable = false)
-    @NotBlank
+    @Column(length = 10, nullable = false)
     @NotNull
-    // @Pattern(regexp = "back-end|front-end")
     @Convert(converter = CategoryConverter.class)
     private Category category;
 
     @Column(length = 10, nullable = false)
-    @NotBlank
     @NotNull
-    @Pattern(regexp = "active|inactive")
-    private String status = "active";
+    @Convert(converter = StatusConverter.class)
+    private Status status = Status.ACTIVE;
     
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn
+    private List<Lesson> lessons = new ArrayList<>();
 }

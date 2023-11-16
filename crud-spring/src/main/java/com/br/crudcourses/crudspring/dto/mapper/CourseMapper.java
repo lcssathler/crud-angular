@@ -1,5 +1,7 @@
 package com.br.crudcourses.crudspring.dto.mapper;
 
+import java.util.stream.Stream;
+
 import org.springframework.stereotype.Component;
 
 import com.br.crudcourses.crudspring.dto.CourseDTO;
@@ -12,7 +14,7 @@ public class CourseMapper {
     public CourseDTO toDto(Course course) {
         if (course == null) return null;
 
-        return new CourseDTO(course.getId(), course.getName(), "Front-end");
+        return new CourseDTO(course.getId(), course.getName(), course.getCategory().getValue());
     }
 
     public Course toEntity(CourseDTO courseDTO) {
@@ -23,7 +25,21 @@ public class CourseMapper {
             course.setId(courseDTO.id());
         }
         course.setName(courseDTO.name());
-        course.setCategory(Category.FRONT_END);
+        course.setCategory(convertToCategory(courseDTO.category()));
         return course;
-    }    
+    }  
+    
+    public Category convertToCategory(String value) {
+        return switch (value) {
+            case "front-end" -> Category.FRONT_END;
+            case "back-end" -> Category.BACK_END;
+            default -> throw new IllegalArgumentException();
+        };
+
+        // return Stream.of(Category.values())
+        //     .filter(category -> category.getValue().equals(value))
+        //     .findFirst()
+        //     .orElseThrow(IllegalArgumentException::new)
+        //     .getValue();
+    }
 }
