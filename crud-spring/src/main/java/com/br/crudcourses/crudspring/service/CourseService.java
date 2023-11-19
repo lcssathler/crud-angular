@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.br.crudcourses.crudspring.dto.CourseDTO;
 import com.br.crudcourses.crudspring.dto.mapper.CourseMapper;
-import com.br.crudcourses.crudspring.enums.Category;
 import com.br.crudcourses.crudspring.exceptions.RecordNotFoundException;
 import com.br.crudcourses.crudspring.repository.CourseRepository;
 
