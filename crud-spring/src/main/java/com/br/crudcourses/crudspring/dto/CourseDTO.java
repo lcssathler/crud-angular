@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.hibernate.validator.constraints.Length;
 
-import com.br.crudcourses.crudspring.model.Lesson;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.validation.constraints.NotBlank;
@@ -24,6 +23,6 @@ public record CourseDTO(
     @Pattern(regexp = "back-end|front-end")
     String category,
 
-    List<Lesson> lessons) {
-
+    List<LessonDTO> lessons) {
+        
 }
