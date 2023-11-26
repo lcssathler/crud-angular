@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
+import { FormGroup, NonNullableFormBuilder, UntypedFormArray, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -55,17 +55,23 @@ export class CourseFormComponent {
     });
   }
 
+  getLessonsFormArray() {
+    return (<UntypedFormArray>this.form.get('lessons')).controls;
+  }
+
   onSubmit() {
     this.coursesService.save(this.form.value)
       .subscribe(result => this.successDialogMessage(), error => this.errorDialogMessage());
+
+    // TODO: refresh page or clear course's controls fields
   }
 
   onCancel() {
-    this.router.navigate([""], { relativeTo: this.route })
+    this.router.navigate([""], { relativeTo: this.route } );
   }
 
   successDialogMessage() {
-    this.dialog.open(ErrorDialogComponent, { data: "Course saved successfully!" })
+    this.dialog.open(ErrorDialogComponent, { data: "Course saved successfully!" });
   }
 
   errorDialogMessage() {

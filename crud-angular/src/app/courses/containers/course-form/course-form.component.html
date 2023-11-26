@@ -4,8 +4,8 @@
   </mat-toolbar>
 
   <mat-card-content>
-    <form class="utl-mar-top-24">
-      <mat-form-field [formGroup]="form">
+    <form [formGroup]="form" class="utl-mar-top-24">
+      <mat-form-field>
         <input matInput formControlName="name" placeholder="Name" #name>
         <mat-hint align="end">{{ name.value.length || 0 }}/100</mat-hint>
         <mat-error *ngIf="form.get('name')?.invalid">{{getErrorMessage('name')}}</mat-error>
@@ -19,6 +19,34 @@
         </mat-select>
         <mat-error *ngIf="form.get('category')?.invalid">{{getErrorMessage('category')}}</mat-error>
       </mat-form-field>
+
+      <mat-toolbar>
+        <h1>Lessons</h1>
+        <button mat-icon-button color="accent">
+          <mat-icon aria-label="Add new lesson">add</mat-icon>
+        </button>
+      </mat-toolbar>
+
+
+      <table style="width: 100%;" formArrayName="lessons" *ngFor="let lesson of getLessonsFormArray();  let i = index">
+        <th></th>
+        <tr [formGroupName]="i">
+          <td>
+            <mat-form-field >
+              <mat-label>Lesson name</mat-label>
+              <input matInput formControlName="name">
+            </mat-form-field>
+          </td>
+
+          <td>
+            <mat-form-field>
+              <mat-label>URL</mat-label>
+              <span matPrefix>https://youtu.be/</span>
+              <input matInput formControlName="url">
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
     </form>
   </mat-card-content>
 
