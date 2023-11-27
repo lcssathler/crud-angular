@@ -33,7 +33,7 @@ export class CourseFormComponent {
       _id: [courseRoute._id],
       name: [courseRoute.name, [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
       category: [courseRoute.category, [Validators.required]],
-      lessons: this.formBuilder.array(this.retrieveLessons(courseRoute))
+      lessons: this.formBuilder.array(this.retrieveLessons(courseRoute), Validators.required)
     });
   }
 
@@ -50,8 +50,8 @@ export class CourseFormComponent {
   private createLesson(lesson: Lesson = { id: '', name: '', url: '' }) {
     return this.formBuilder.group({
       id: [lesson.id],
-      name: [lesson.name],
-      url: [lesson.url]
+      name: [lesson.name, [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
+      url: [lesson.url, [Validators.required, Validators.minLength(10), Validators.maxLength(11)]]
     })
   }
 
@@ -69,9 +69,18 @@ export class CourseFormComponent {
     lessons.removeAt(index);
   }
 
+  isFormArrayValid(): boolean {
+    const lessons = this.form.get('lessons') as UntypedFormArray;
+    return !lessons.valid && lessons.getError('required') && lessons.touched;
+  }
+
   onSubmit() {
-    this.coursesService.save(this.form.value)
-      .subscribe(result => this.successDialogMessage(), error => this.errorDialogMessage());
+    if (this.form.valid) {
+      this.coursesService.save(this.form.value)
+        .subscribe(result => this.successDialogMessage(), error => this.errorDialogMessage("Error saving new course"));
+    } else {
+      this.errorDialogMessage("Invalid form");
+    }
 
     // TODO: refresh page or clear course's controls fields
   }
@@ -84,8 +93,8 @@ export class CourseFormComponent {
     this.dialog.open(ErrorDialogComponent, { data: "Course saved successfully!" });
   }
 
-  errorDialogMessage() {
-    this.dialog.open(ErrorDialogComponent, { data: "Error saving new course" })
+  errorDialogMessage(msg: string) {
+    this.dialog.open(ErrorDialogComponent, { data: msg })
   }
 
   getErrorMessage(fieldName: string) {
