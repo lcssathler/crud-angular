@@ -52,11 +52,21 @@ export class CourseFormComponent {
       id: [lesson.id],
       name: [lesson.name],
       url: [lesson.url]
-    });
+    })
   }
 
   getLessonsFormArray() {
     return (<UntypedFormArray>this.form.get('lessons')).controls;
+  }
+
+  onAddNewLesson() {
+    const lessons = this.form.get('lessons') as UntypedFormArray;
+    lessons.push(this.createLesson());
+  }
+
+  onRemoveLesson(index: number) {
+    const lessons = this.form.get('lessons') as UntypedFormArray;
+    lessons.removeAt(index);
   }
 
   onSubmit() {
