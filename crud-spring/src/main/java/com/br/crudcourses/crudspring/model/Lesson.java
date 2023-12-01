@@ -22,4 +22,16 @@ public class Lesson {
     @JoinColumn(name = "course_id", nullable = false)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Course course;
+
+    public Lesson() {
+        
+    }
+
+    public Lesson(Long id, String name, String url) {
+        this.id = id;
+        this.name = name;
+        this.url = url;
+    }
+
+    
 }

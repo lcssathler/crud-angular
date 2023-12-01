@@ -50,4 +50,14 @@ public class Course {
     
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "course")
     private List<Lesson> lessons = new ArrayList<>();
+
+    public Course(Long id, @NotBlank @NotNull @Length(min = 5, max = 100) String name, @NotNull Category category,
+            List<Lesson> lessons) {
+        this.id = id;
+        this.name = name;
+        this.category = category;
+        this.lessons = lessons;
+    }
+
+    
 }
