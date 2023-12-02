@@ -36,7 +36,7 @@ public class CourseMapper {
         }
         course.setName(courseDTO.name());
         course.setCategory(convertToCategory(courseDTO.category()));
-        List<Lesson> lessons =  courseDTO.lessons().stream()
+        List<Lesson> lessons = courseDTO.lessons().stream()
             .map(lessonDTO -> {
                 Lesson lesson = new Lesson();
                 lesson.setId(lessonDTO.id());

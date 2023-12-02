@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.br.crudcourses.crudspring.dto.CourseDTO;
 import com.br.crudcourses.crudspring.dto.mapper.CourseMapper;
 import com.br.crudcourses.crudspring.exceptions.RecordNotFoundException;
+import com.br.crudcourses.crudspring.model.Course;
 import com.br.crudcourses.crudspring.repository.CourseRepository;
 
 import jakarta.validation.Valid;
@@ -55,11 +56,13 @@ public class CourseService {
     @PutMapping("/{id}")
     public CourseDTO update(@NotNull @Positive Long id, @Valid @NotNull CourseDTO courseDTO) {
         return courseRepository.findById(id)
-            .map(course -> {
-                course.setName(courseDTO.name());
-                course.setCategory(courseMapper.convertToCategory(courseDTO.category()));
-                course.setLessons(courseMapper.toEntity(courseDTO).getLessons());
-                return courseMapper.toDto(courseRepository.save(course));
+            .map(recordFound -> {
+                Course course = courseMapper.toEntity(courseDTO);
+                recordFound.setName(courseDTO.name());
+                recordFound.setCategory(courseMapper.convertToCategory(courseDTO.category()));
+                recordFound.getLessons().clear();
+                course.getLessons().forEach(lesson -> recordFound.getLessons().add(lesson));
+                return courseMapper.toDto(courseRepository.save(recordFound));
             })
             .orElseThrow(() -> new RecordNotFoundException(id));
     }
