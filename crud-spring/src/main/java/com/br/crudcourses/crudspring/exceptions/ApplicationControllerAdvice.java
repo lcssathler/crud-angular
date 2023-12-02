@@ -42,8 +42,9 @@ public class ApplicationControllerAdvice {
             String[] typeParts = type.split("\\.");
             String typeName = typeParts[typeParts.length - 1];
             return ex.getName() + " should be of type " + typeName;
+        } else {
+            return "Argument type not valid";
         }
-        return "Argument type not valid";
     }
 
 }

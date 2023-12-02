@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.br.crudcourses.crudspring.enums.Category;
+import com.br.crudcourses.crudspring.enums.validation.ValueOfEnum;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.validation.Valid;
@@ -24,9 +26,12 @@ public record CourseDTO(
     @NotEmpty
     @Valid
     @Length(max = 10)
-    @Pattern(regexp = "back-end|front-end")
+    @ValueOfEnum(enumClass = Category.class)
     String category,
 
+    @NotNull
+    @NotEmpty
+    @Valid
     List<LessonDTO> lessons) {
         
 }
