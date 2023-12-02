@@ -13,19 +13,15 @@ import com.br.crudcourses.crudspring.enums.converters.CategoryConverter;
 import com.br.crudcourses.crudspring.enums.converters.StatusConverter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @SQLDelete(sql = "UPDATE courses SET status = 'inactive' WHERE id = ?")
 @Where(clause = "status = 'Active'")
-@Data
 @Entity
 @Table(name = "courses")
-@NoArgsConstructor
-@AllArgsConstructor
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -47,9 +43,16 @@ public class Course {
     @NotNull
     @Convert(converter = StatusConverter.class)
     private Status status = Status.ACTIVE;
-    
+
+    @NotNull
+    @NotEmpty
+    @Valid
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "course")
     private List<Lesson> lessons = new ArrayList<>();
+
+    public Course() {
+
+    }
 
     public Course(Long id, @NotBlank @NotNull @Length(min = 5, max = 100) String name, @NotNull Category category,
             List<Lesson> lessons) {
@@ -59,5 +62,50 @@ public class Course {
         this.lessons = lessons;
     }
 
-    
+    @Override
+    public String toString() {
+        return "Course [id=" + id + ", name=" + name + ", category=" + category + ", status=" + status + ", lessons="
+                + lessons + "]";
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public List<Lesson> getLessons() {
+        return lessons;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(@NotBlank @NotNull @Length(min = 5, max = 100) String name) {
+        this.name = name;
+    }
+
+    public void setCategory(@NotNull Category category) {
+        this.category = category;
+    }
+
+    public void setStatus(@NotNull Status status) {
+        this.status = status;
+    }
+
+    public void setLessons(List<Lesson> lessons) {
+        this.lessons = lessons;
+    }
+
 }

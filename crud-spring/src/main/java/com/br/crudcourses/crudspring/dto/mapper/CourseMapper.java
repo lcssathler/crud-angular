@@ -2,8 +2,8 @@ package com.br.crudcourses.crudspring.dto.mapper;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.br.crudcourses.crudspring.dto.CourseDTO;
@@ -53,16 +53,9 @@ public class CourseMapper {
     } 
     
     public Category convertToCategory(String value) {
-        return switch (value) {
-            case "front-end" -> Category.FRONT_END;
-            case "back-end" -> Category.BACK_END;
-            default -> throw new IllegalArgumentException();
-        };
-
-        // return Stream.of(Category.values())
-        //     .filter(category -> category.getValue().equals(value))
-        //     .findFirst()
-        //     .orElseThrow(IllegalArgumentException::new)
-        //     .getValue();
+        return Stream.of(Category.values())
+            .filter(category -> category.getValue().equals(value))
+            .findFirst()
+            .orElseThrow(IllegalArgumentException::new);
     }
 }
