@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.br.crudcourses.crudspring.dto.CourseDTO;
+import com.br.crudcourses.crudspring.dto.CoursePageDTO;
 import com.br.crudcourses.crudspring.service.CourseService;
 
 import jakarta.validation.Valid;
@@ -32,7 +33,7 @@ public class CourseController {
     }
 
     @GetMapping
-    public List<CourseDTO> coursesList() {
+    public CoursePageDTO coursesList() {
         return courseService.coursesList();
     }
 

@@ -22,8 +22,6 @@ public record CourseDTO(
     String name,
 
     @NotNull
-    @NotEmpty
-    @Valid
     @Length(max = 10)
     @ValueOfEnum(enumClass = Category.class)
     String category,

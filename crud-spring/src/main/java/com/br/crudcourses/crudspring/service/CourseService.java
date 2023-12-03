@@ -3,6 +3,8 @@ package com.br.crudcourses.crudspring.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.br.crudcourses.crudspring.dto.CourseDTO;
+import com.br.crudcourses.crudspring.dto.CoursePageDTO;
 import com.br.crudcourses.crudspring.dto.mapper.CourseMapper;
 import com.br.crudcourses.crudspring.exceptions.RecordNotFoundException;
 import com.br.crudcourses.crudspring.model.Course;
@@ -33,11 +36,12 @@ public class CourseService {
     }
 
     @GetMapping
-    public List<CourseDTO> coursesList() {
-        return courseRepository.findAll()
-        .stream()
-        .map(courseMapper::toDto)
-        .collect(Collectors.toList());
+    public CoursePageDTO coursesList() {
+        Page<Course> pageCourse = courseRepository.findAll(PageRequest.of(10, 20));
+        List<CourseDTO> coursesDTO = pageCourse.get()
+            .map(courseMapper::toDto)
+            .collect(Collectors.toList());
+        return new CoursePageDTO(coursesDTO, pageCourse.getTotalElements(), pageCourse.getTotalPages());
     }
 
     @GetMapping("/{id}")
