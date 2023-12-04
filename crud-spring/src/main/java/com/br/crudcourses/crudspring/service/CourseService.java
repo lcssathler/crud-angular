@@ -22,8 +22,10 @@ import com.br.crudcourses.crudspring.model.Course;
 import com.br.crudcourses.crudspring.repository.CourseRepository;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 
 @Service
 public class CourseService {
@@ -36,12 +38,12 @@ public class CourseService {
     }
 
     @GetMapping
-    public CoursePageDTO coursesList() {
-        Page<Course> pageCourse = courseRepository.findAll(PageRequest.of(10, 20));
-        List<CourseDTO> coursesDTO = pageCourse.get()
+    public CoursePageDTO coursesList(@PositiveOrZero int page, @Positive @Max(100) int pageSize) {
+        Page<Course> coursePage = courseRepository.findAll(PageRequest.of(page, pageSize));
+        List<CourseDTO> coursesDTO = coursePage.get()
             .map(courseMapper::toDto)
             .collect(Collectors.toList());
-        return new CoursePageDTO(coursesDTO, pageCourse.getTotalElements(), pageCourse.getTotalPages());
+        return new CoursePageDTO(coursesDTO, coursePage.getTotalElements(), coursePage.getTotalPages());
     }
 
     @GetMapping("/{id}")
