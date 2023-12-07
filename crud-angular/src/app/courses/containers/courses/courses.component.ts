@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Course } from '../../model/course';
 import { CoursesService } from '../../service/courses.service';
-import { Observable, catchError, of } from 'rxjs';
+import { Observable, catchError, of, tap } from 'rxjs';
 import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/error-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
+import { CoursePage } from '../../model/course-page';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-courses',
@@ -14,7 +16,12 @@ import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmat
   styleUrls: ['./courses.component.scss']
 })
 export class CoursesComponent implements OnInit {
-  courses$: Observable<Course[]> | null = null;
+  courses$: Observable<CoursePage> | null = null;
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  pageIndex = 0;
+  pageSize = 10;
 
   constructor(
     private coursesService: CoursesService,
@@ -23,18 +30,30 @@ export class CoursesComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.refresh();
+    console.log(this.pageIndex);
+    console.log(this.pageSize);
+
   }
 
-  refresh() {
-    this.courses$ = this.coursesService.list()
+  refresh(pageEvent: PageEvent = { length: 0, pageIndex: 0, pageSize: 10 }) {
+    this.courses$ = this.coursesService.list(pageEvent.pageIndex, pageEvent.pageSize)
       .pipe(
+        tap(() => {
+          this.pageIndex = pageEvent.pageIndex;
+          this.pageSize = pageEvent.pageSize;
+          console.log(this.pageIndex);
+          console.log(this.pageSize);
+        }),
         catchError(error => {
-          this.onMsg("Error loading courses")
-          return of([]);
+          this.onMsg("Error loading courses");
+          return of({ courses: [], totalElements: 0, totalPages: 0 });
         })
       );
   }
 
+  ngOnInit() {
+
+  }
 
   onAdd() {
     this.router.navigate(["new"], { relativeTo: this.route });
@@ -67,9 +86,5 @@ export class CoursesComponent implements OnInit {
     this.dialog.open(ErrorDialogComponent, {
       data: msg
     });
-  }
-
-  ngOnInit() {
-
   }
 }
