@@ -11,7 +11,9 @@ export class CoursesListComponent {
   @Output() add = new EventEmitter(false);
   @Output() edit = new EventEmitter();
   @Output() delete = new EventEmitter();
-  readonly displayedColumns = ["name", "category", "actions"];
+  @Output() deleteSelected = new EventEmitter();
+  readonly displayedColumns = ["name", "category", "actions", "selection"];
+  coursesChecked: Course[] = [];
 
   constructor() {
 
@@ -25,7 +27,20 @@ export class CoursesListComponent {
     this.edit.emit(course);
   }
 
+  onCheck(course: Course) {
+    const index = this.coursesChecked.findIndex(item => item._id == course._id);
+    if (index != -1) {
+      this.coursesChecked.splice(index, 1);
+    } else {
+      this.coursesChecked.push(course);
+    }
+  }
+
   onDelete(course: Course) {
     this.delete.emit(course);
+  }
+
+  onDeleteSelected() {
+    this.deleteSelected.emit(this.coursesChecked);
   }
 }

@@ -30,9 +30,6 @@ export class CoursesComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.refresh();
-    console.log(this.pageIndex);
-    console.log(this.pageSize);
-
   }
 
   refresh(pageEvent: PageEvent = { length: 0, pageIndex: 0, pageSize: 10 }) {
@@ -41,8 +38,6 @@ export class CoursesComponent implements OnInit {
         tap(() => {
           this.pageIndex = pageEvent.pageIndex;
           this.pageSize = pageEvent.pageSize;
-          console.log(this.pageIndex);
-          console.log(this.pageSize);
         }),
         catchError(error => {
           this.onMsg("Error loading courses");
@@ -77,6 +72,24 @@ export class CoursesComponent implements OnInit {
               this.onMsg("Course deleted successfully!")
             },
             (error) => this.onMsg("Error deleting course")
+          );
+      }
+    })
+  }
+
+  onDeleteSelected(coursesToDelete: Course[]) {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: `Do you want to remove ${coursesToDelete.length} courses?`,
+    });
+
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
+        this.coursesService.deleteSelected(coursesToDelete)
+          .subscribe((success) => {
+            this.refresh();
+            this.onMsg("Courses deleted successfully!")
+          },
+            (error) => this.onMsg("Error deleting courses")
           );
       }
     })

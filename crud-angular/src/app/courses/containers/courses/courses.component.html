@@ -6,7 +6,8 @@
       [courses]="coursePage.courses"
       (add)="onAdd()"
       (edit)="onEdit($event)"
-      (delete)="onDelete($event)">
+      (delete)="onDelete($event)"
+      (deleteSelected)="onDeleteSelected($event)">
     </app-courses-list>
 
     <mat-paginator

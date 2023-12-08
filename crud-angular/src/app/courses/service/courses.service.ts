@@ -42,4 +42,8 @@ export class CoursesService {
     return this.httpClient.delete(`${this.URL}/${id}`).pipe(first());
   }
 
+  deleteSelected(courses: Course[]) {
+    return this.httpClient.delete(this.URL, {body: courses}).pipe(first());
+  }
+
 }

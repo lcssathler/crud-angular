@@ -78,4 +78,13 @@ public class CourseService {
         courseRepository.delete(courseRepository.findById(id)
             .orElseThrow(() -> new RecordNotFoundException(id)));
     }
+
+    @DeleteMapping
+    public void deleteAllSelected(List<CourseDTO> coursesDTO) {
+        List<Long> ids = coursesDTO.stream()
+            .map(CourseDTO::id)
+            .collect(Collectors.toList());
+        
+        courseRepository.deleteAllById(ids);
+    }
 }
