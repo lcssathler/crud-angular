@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, QueryList, ViewChildren } from '@angular/core';
 import { Course } from '../../model/course';
+import { MatCheckbox } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-courses-list',
@@ -14,6 +15,10 @@ export class CoursesListComponent {
   @Output() deleteSelected = new EventEmitter();
   readonly displayedColumns = ["name", "category", "actions", "selection"];
   coursesChecked: Course[] = [];
+
+  @ViewChildren('checkboxHeader') checkboxHeader!: MatCheckbox;
+  @ViewChildren('checkboxCells') checkboxes!: QueryList<MatCheckbox>;
+
 
   constructor() {
 
@@ -42,5 +47,14 @@ export class CoursesListComponent {
 
   onDeleteSelected() {
     this.deleteSelected.emit(this.coursesChecked);
+  }
+
+  toggleCheckboxes(check: boolean,  courses: Course[]) {
+    for (let i = 0; i < courses.length; i++) {
+      const checkbox = this.checkboxes.get(i);
+      checkbox!.checked = check;
+
+      this.onCheck(courses[i]);
+    }
   }
 }

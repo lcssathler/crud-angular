@@ -78,6 +78,13 @@ export class CoursesComponent implements OnInit {
   }
 
   onDeleteSelected(coursesToDelete: Course[]) {
+    console.log(coursesToDelete);
+
+    if (coursesToDelete.length == 0) {
+      this.onMsg("None course selected to delete");
+      return;
+    }
+
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       data: `Do you want to remove ${coursesToDelete.length} courses?`,
     });

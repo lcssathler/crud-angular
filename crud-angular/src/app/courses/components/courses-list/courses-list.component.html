@@ -38,10 +38,12 @@
       <button (click)="onDeleteSelected()" mat-icon-button color="warn" aria-label="Delete course button">
         <mat-icon>delete</mat-icon>
       </button>
+
+      <mat-checkbox #checkboxHeader (change)="toggleCheckboxes(checkboxHeader.checked, courses)"></mat-checkbox>
     </mat-header-cell>
 
     <mat-cell *matCellDef="let course">
-      <mat-checkbox (click)="onCheck(course)"></mat-checkbox>
+      <mat-checkbox #checkboxCells (click)="onCheck(course)"></mat-checkbox>
     </mat-cell>
 
   </ng-container>
