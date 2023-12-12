@@ -1,4 +1,4 @@
-# 📒 CRUD Angular + Spring
+# CRUD Angular + Spring
 Meu primeiro projeto fullstack utilizando o framework Angular através do curso da professora Loiane Groner, disponível no Youtube.
 <br>
 <br>
