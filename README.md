@@ -61,4 +61,4 @@ Além do desenvolvimento, fiz um pequeno resumo de cada feature commitada ao lon
 * [Projeto hospedado no Vercel]()
 * [Features comentadas no Notion](https://literate-desert-363.notion.site/Loiane-Groner-b67b7f22feb94aaab8a3eba386520e9c?pvs=4)
 * [Meu LinkedIn](https://www.linkedin.com/in/lucas-sathler-aguiar/)
-* [Meu currículo]()
+* [Meu currículo](https://drive.google.com/file/u/0/d/18aLJop3otxWQGwTdUpB5UzuO48W8R0h8/view?usp=drive_link&pli=1)
