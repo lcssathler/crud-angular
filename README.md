@@ -4,7 +4,13 @@ Meu primeiro projeto fullstack utilizando o framework Angular através do curso 
 <br>
 
 ## 🛠️ Tecnologias utilizadas
-[![My Skills](https://skills.thijs.gg/icons?i=ts,angular,java,react,spring,vscode,git)](https://skills.thijs.gg)
+<code><img width="40px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" title = "TYPESCRIPT"/></code>
+<code><img width="40px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg" title = "ANGULAR"/></code>
+<code><img width="40px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" title = "JAVA"/></code>
+<code><img width="40px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" title = "Spring"/></code>
+<code><img width="40px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" title = "MySQL"/></code>
+<code><img width="40px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" title = "Docker"/></code>
+<code><img width="40px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" title = "Vs Code"/></code>
 <br>
 <br>
 
@@ -55,4 +61,4 @@ Além do desenvolvimento, fiz um pequeno resumo de cada feature commitada ao lon
 * [Projeto hospedado no Vercel]()
 * [Features comentadas no Notion](https://literate-desert-363.notion.site/Loiane-Groner-b67b7f22feb94aaab8a3eba386520e9c?pvs=4)
 * [Meu LinkedIn](https://www.linkedin.com/in/lucas-sathler-aguiar/)
-* [Meu currículo]()
+* [Meu currículo](https://drive.google.com/file/u/0/d/18aLJop3otxWQGwTdUpB5UzuO48W8R0h8/view?usp=drive_link&pli=1)
