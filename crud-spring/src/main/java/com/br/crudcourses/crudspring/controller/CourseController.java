@@ -36,6 +36,7 @@ public class CourseController {
     }
 
     @GetMapping
+    @ResponseStatus(code = HttpStatus.OK)
     public CoursePageDTO coursesList(@RequestParam(defaultValue = "0") @PositiveOrZero int page, 
             @RequestParam(defaultValue = "10") @Positive @Max(100) int pageSize) {
         return courseService.coursesList(page, pageSize);
