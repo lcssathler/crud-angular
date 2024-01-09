@@ -1,11 +1,17 @@
 import { Component, EventEmitter, Input, Output, QueryList, ViewChildren } from '@angular/core';
 import { Course } from '../../model/course';
-import { MatCheckbox } from '@angular/material/checkbox';
+import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
+import { CategoryPipe } from '../../../shared/pipes/category.pipe';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTableModule } from '@angular/material/table';
 
 @Component({
-  selector: 'app-courses-list',
-  templateUrl: './courses-list.component.html',
-  styleUrls: ['./courses-list.component.scss']
+    selector: 'app-courses-list',
+    templateUrl: './courses-list.component.html',
+    styleUrls: ['./courses-list.component.scss'],
+    standalone: true,
+    imports: [MatTableModule, MatIconModule, MatButtonModule, MatCheckboxModule, CategoryPipe]
 })
 export class CoursesListComponent {
   @Input() courses: Course[] = [];
