@@ -1,0 +1,15 @@
+services:
+  - name: web
+    plan: starter
+    environment:
+      SPRING_PROFILES_ACTIVE: production
+      SPRING_DATASOURCE_URL: jdbc:postgresql://dpg-cmfj5leg1b2c73cmj4mg-a:5432/course_dba
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: dS7NpQ9ZBEZo9KzLCrMBsd7MiiWssi0H
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    buildCommand: mvn clean package -DskipTests
+    startCommand: java -jar target/*.jar
+
+databases:
+  - name: dpg-cmfj5leg1b2c73cmj4mg-a
+    plan: starter-postgres
