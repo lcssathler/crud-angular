@@ -29,7 +29,7 @@ import jakarta.validation.constraints.PositiveOrZero;
 @Validated
 @RestController
 @RequestMapping("/api/courses")
-@CrossOrigin(origins = "http://crud-angular-5kiz-n9m5ovuih-lcssathlers-projects.vercel.app/", maxAge = 3600)
+@CrossOrigin(origins = "https://crud-angular-5kiz.vercel.app/courses", maxAge = 3600)
 public class CourseController {
     private final CourseService courseService;
 
