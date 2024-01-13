@@ -7,7 +7,7 @@ services:
       SPRING_DATASOURCE_USERNAME: admin
       SPRING_DATASOURCE_PASSWORD: dS7NpQ9ZBEZo9KzLCrMBsd7MiiWssi0H
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
-    buildCommand: mvn clean package -DskipTests
+    buildCommand: ./mvnw clean package -DskipTests
     startCommand: java -jar target/*.jar
 
 databases:
