@@ -1,7 +1,7 @@
 const PROXY_CONFIG = [
   {
     context: ['/api'],
-    target: 'http://localhost:8080/',
+    target: 'http://crud-course-deploy-render.onrender.com/',
     secure: 'false',
     logLevel: 'debug'
   }
