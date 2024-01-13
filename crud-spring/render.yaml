@@ -9,6 +9,11 @@ services:
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
     buildCommand: ./mvnw clean package -DskipTests
     startCommand: java -jar target/*.jar
+    routes:
+      - priority: 10
+        path: "/api/*"
+        cors_headers:
+          - "Access-Control-Allow-Origin: http://localhost:4200"
 
 databases:
   - name: dpg-cmfj5leg1b2c73cmj4mg-a
