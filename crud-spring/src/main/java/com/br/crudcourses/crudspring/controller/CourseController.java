@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,7 +28,6 @@ import jakarta.validation.constraints.PositiveOrZero;
 @Validated
 @RestController
 @RequestMapping("/api/courses")
-@CrossOrigin(origins = "http://localhost:4200/courses")
 public class CourseController {
     private final CourseService courseService;
 
