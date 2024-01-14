@@ -12,7 +12,8 @@ public class CorsConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-        .allowedOrigins("https://crud-angular-5kiz.vercel.app/courses")
-        .allowedMethods("GET", "POST", "PUT", "DELETE");
+        .allowedOrigins("https://crud-angular-5kiz.vercel.app")
+        .allowedMethods("GET", "POST", "PUT", "DELETE")
+        .allowedHeaders();
     }
 }
