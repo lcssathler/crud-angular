@@ -29,7 +29,7 @@ import jakarta.validation.constraints.PositiveOrZero;
 
 @Service
 public class CourseService {
-    private CourseRepository courseRepository;
+    private final CourseRepository courseRepository;
     private final CourseMapper courseMapper;
 
     public CourseService(CourseRepository courseRepository, CourseMapper courseMapper) {

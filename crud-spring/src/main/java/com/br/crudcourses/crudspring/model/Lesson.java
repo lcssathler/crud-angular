@@ -8,6 +8,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.Objects;
+
 @Entity
 public class Lesson {
     @Id
@@ -51,6 +53,18 @@ public class Lesson {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Lesson lesson = (Lesson) o;
+        return Objects.equals(id, lesson.id) && Objects.equals(name, lesson.name) && Objects.equals(url, lesson.url);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, url);
     }
 
     public void setName(String name) {
