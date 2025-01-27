@@ -16,7 +16,8 @@ import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.BeanUtils;
 
 public record CourseDTO(
-    @JsonProperty("_id") 
+    @JsonProperty("_id")
+    @NotNull
     Long id,
 
     @NotBlank
