@@ -11,8 +11,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.when;
 
 class CourseMapperTest {
 
@@ -27,24 +29,23 @@ class CourseMapperTest {
         Course course = new Course(1L, "Java for Beginners",  Category.BACK_END, lessons);
         CourseDTO courseDTO = courseMapper.toDto(course);
 
-        assertNotNull(course);
-        assertEquals(1L, course.getId());
         assertEquals("Java for Beginners", course.getName());
-        assertEquals(Category.BACK_END, course.getCategory());
-        assertEquals(lessons, course.getLessons());
 
         assertEquals(course.getId(), courseDTO.id());
         assertEquals(course.getName(), courseDTO.name());
         assertEquals(course.getCategory().getValue(), courseDTO.category());
         assertEquals(course.getLessons().size(), courseDTO.lessons().size());
 
-        IntStream.range(0, lessons.size()).forEach(i -> {
-            Lesson lessonsObtained = course.getLessons().get(i);
-            LessonDTO lessonsDTOObtained = courseDTO.lessons().get(i);
-            assertEquals(lessonsObtained.getId(), lessonsDTOObtained.id());
-            assertEquals(lessonsObtained.getName(), lessonsDTOObtained.name());
-            assertEquals(lessonsObtained.getUrl(), lessonsDTOObtained.url());
-        });
+        assertThat(courseDTO.lessons())
+                .hasSameSizeAs(course.getLessons())
+                .allSatisfy(lessonDTO -> {
+                    int index = courseDTO.lessons().indexOf(lessonDTO);
+                    Lesson lesson = course.getLessons().get(index);
+
+                    assertEquals(lesson.getId(), lessonDTO.id(), "Lesson id does not match");
+                    assertEquals(lesson.getName(), lessonDTO.name(), "Lesson name does not match");
+                    assertEquals(lesson.getUrl(), lessonDTO.url(), "Lesson url does not match");
+                });
     }
 
     @Test
@@ -56,28 +57,27 @@ class CourseMapperTest {
         CourseDTO courseDTO = new CourseDTO(1L, "Java Expert Bootcamp", "back-end", lessonsDTO);
         Course course = courseMapper.toEntity(courseDTO);
 
-        assertNotNull(courseDTO);
-        assertEquals(1L, courseDTO.id());
-        assertEquals("Java Expert Bootcamp", courseDTO.name());
-        assertEquals(Category.BACK_END.getValue(), courseDTO.category());
-        assertEquals(lessonsDTO, courseDTO.lessons());
-
         assertEquals(courseDTO.id(), course.getId());
         assertEquals(courseDTO.name(), course.getName());
         assertEquals(courseDTO.category(), course.getCategory().getValue());
         assertEquals(courseDTO.lessons().size(), course.getLessons().size());
 
-        IntStream.range(0, lessonsDTO.size()).forEach(i -> {
-            LessonDTO lessonsDTOObtained = courseDTO.lessons().get(i);
-            Lesson lessonObtained = course.getLessons().get(i);
-            assertEquals(lessonsDTOObtained.id(), lessonObtained.getId());
-            assertEquals(lessonsDTOObtained.name(), lessonObtained.getName());
-            assertEquals(lessonsDTOObtained.url(), lessonObtained.getUrl());
-        });
+        assertThat(course.getLessons())
+                .hasSameSizeAs(courseDTO.lessons())
+                .allSatisfy(lesson -> {
+                    int index = course.getLessons().indexOf(lesson);
+                    LessonDTO lessonDTO = courseDTO.lessons().get(index);
+
+                    assertEquals(lessonDTO.id(), lesson.getId(), "Lesson id does not match");
+                    assertEquals(lessonDTO.name(), lesson.getName(), "Lesson name does not match");
+                    assertEquals(lessonDTO.url(), lesson.getUrl(), "Lesson url does not match");
+                });
     }
 
     @Test
     void convertToCategory() {
-    }
+        when(Category.valueOf("back-end")).thenReturn(Category.BACK_END);
+        when(Category.valueOf("front-end")).thenReturn(Category.FRONT_END);
+    }  
 
 }
