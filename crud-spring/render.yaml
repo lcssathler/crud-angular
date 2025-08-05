@@ -1,15 +1,47 @@
-services:
-  - name: web
-    plan: starter
-    environment:
-      SPRING_PROFILES_ACTIVE: production
-      SPRING_DATASOURCE_URL: jdbc:postgresql://dpg-cmfj5leg1b2c73cmj4mg-a:5432/course_dba
-      SPRING_DATASOURCE_USERNAME: admin
-      SPRING_DATASOURCE_PASSWORD: dS7NpQ9ZBEZo9KzLCrMBsd7MiiWssi0H
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
-    buildCommand: ./mvnw clean package -DskipTests
-    startCommand: java -jar target/*.jar
+#services:
+#  - name: web
+#    plan: starter
+#    environment:
+#      SPRING_PROFILES_ACTIVE: production
+#      SPRING_DATASOURCE_URL: jdbc:postgresql://dpg-d270mk6uk2gs73cn36gg-a.oregon-postgres.render.com:5432/db_crud_angular
+#      SPRING_DATASOURCE_USERNAME: db_crud_angular_user
+#      SPRING_DATASOURCE_PASSWORD: IiuFYBzm1xz7bYlzaGFMRipQJRjFoWwP
+#      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+#    buildCommand: ./mvnw clean package -DskipTests
+#    startCommand: java -jar target/*.jar
+#
+#databases:
+#  - name: dpg-d270mk6uk2gs73cn36gg-a
+#    plan: starter-postgres
 
-databases:
-  - name: dpg-cmfj5leg1b2c73cmj4mg-a
-    plan: starter-postgres
+#services:
+#  - type: web
+#    name: crud-spring
+#    runtime: java
+#    buildCommand: ./mvnw clean install
+#    startCommand: java -jar target/*.jar
+#    envVars:
+#      - key: SPRING_DATASOURCE_URL
+#        value: jdbc:postgresql://dpg-d270mk6uk2gs73cn36gg-a.oregon-postgres.render.com:5432/db_crud_angular
+#      - key: SPRING_DATASOURCE_USERNAME
+#        value: db_crud_angular_user
+#      - key: SPRING_DATASOURCE_PASSWORD
+#        value: IiuFYBzm1xz7bYlzaGFMRipQJRjFoWwP
+#      - key: SPRING_JPA_HIBERNATE_DDL_AUTO
+#        value: update
+#      - key: SPRING_PROFILES_ACTIVE
+#        value: prod
+#    plan: free
+#    branch: main
+#    autoDeploy: true
+#
+
+services:
+  - type: web
+    name: crud-spring
+    runtime: java
+    buildCommand: ./mvnw clean package
+    startCommand: java -jar target/*.jar
+    plan: free
+    branch: main
+    autoDeploy: true

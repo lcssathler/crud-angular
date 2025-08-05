@@ -11,6 +11,7 @@ import { CoursePage } from '../model/course-page';
 
 export class CoursesService {
   private readonly URL = "https://crud-course-deploy-render.onrender.com/api/courses";
+  // private readonly URL = "/api/courses";
 
   constructor(private httpClient: HttpClient) { }
 

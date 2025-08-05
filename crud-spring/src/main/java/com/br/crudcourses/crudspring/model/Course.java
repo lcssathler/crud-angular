@@ -24,7 +24,7 @@ import jakarta.validation.constraints.NotNull;
 @Table(name = "courses")
 public class Course {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @JsonProperty("_id")
     private Long id;
 

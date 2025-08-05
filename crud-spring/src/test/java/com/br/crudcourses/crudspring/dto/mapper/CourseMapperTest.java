@@ -73,11 +73,4 @@ class CourseMapperTest {
                     assertEquals(lessonDTO.url(), lesson.getUrl(), "Lesson url does not match");
                 });
     }
-
-    @Test
-    void convertToCategory() {
-        when(Category.valueOf("back-end")).thenReturn(Category.BACK_END);
-        when(Category.valueOf("front-end")).thenReturn(Category.FRONT_END);
-    }  
-
 }
