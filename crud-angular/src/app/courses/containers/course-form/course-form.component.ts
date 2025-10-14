@@ -87,6 +87,7 @@ export class CourseFormComponent {
 
   onSubmit() {
     if (this.form.valid) {
+      console.log(this.form.value); 
       this.coursesService.save(this.form.value)
         .subscribe(result => this.successDialogMessage(), error => this.errorDialogMessage("Error saving new course"));
     } else {
